@@ -1,7 +1,7 @@
 import { useInfiniteQuery, keepPreviousData } from "@tanstack/react-query";
 import { NotificationResponse } from "@/@types/notifications";
 import { QUERIES } from "@/helpers/queries";
-import { BASE_URL, STALE_TIME } from "@/helpers/api";
+import { API_URL, STALE_TIME } from "@/helpers/api";
 
 export const DEFAULT_PAGE_LIMIT = 50;
 
@@ -17,15 +17,12 @@ async function getNotifications({
     limit: limit.toString(),
   });
 
-  const response = await fetch(
-    `${BASE_URL}notifications?${params.toString()}`,
-    {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }
-  );
+  const response = await fetch(`${API_URL}notifications?${params.toString()}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
 
   if (!response.ok) {
     throw new Error("Error fetching payments");

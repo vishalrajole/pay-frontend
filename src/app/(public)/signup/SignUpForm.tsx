@@ -2,18 +2,18 @@
 import React, { useActionState } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { loginAction } from "./actions";
+import { signUpAction } from "./actions";
 
-export default function LoginForm() {
-  const [state, login, isPending] = useActionState(loginAction, null);
+export default function SignUpForm() {
+  const [state, signUp, isPending] = useActionState(signUpAction, null);
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
       <div className="bg-white p-8 rounded-lg shadow-lg w-96">
         <h2 className="text-2xl font-semibold text-center text-gray-700 mb-6">
-          Login
+          Sign up
         </h2>
-        <form action={login} className="space-y-4">
+        <form action={signUp} className="space-y-4">
           <div>
             <label
               htmlFor="email"
@@ -52,13 +52,13 @@ export default function LoginForm() {
           </div>
 
           <Button type="submit" className="w-full mt-4" disabled={isPending}>
-            {isPending ? "Loading..." : "Login"}
+            {isPending ? "Loading..." : "Sign up"}
           </Button>
           <Link
-            href="/signup"
+            href="/login"
             className="w-full flex justify-center mt-4 underline"
           >
-            Sign Up
+            Login
           </Link>
         </form>
       </div>

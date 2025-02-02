@@ -2,7 +2,7 @@ import { useInfiniteQuery, keepPreviousData } from "@tanstack/react-query";
 import { SortingState } from "@tanstack/react-table";
 import { PaymentResponse } from "@/@types/payments";
 import { QUERIES } from "@/helpers/queries";
-import { BASE_URL } from "@/helpers/api";
+import { API_URL } from "@/helpers/api";
 
 export const DEFAULT_PAGE_LIMIT = 50;
 
@@ -24,7 +24,7 @@ async function getPayments({
     searchTerm: searchTerm || "",
   });
 
-  const response = await fetch(`${BASE_URL}payments?${params.toString()}`, {
+  const response = await fetch(`${API_URL}payments?${params.toString()}`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
