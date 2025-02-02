@@ -2,8 +2,7 @@
 
 import { z } from "zod";
 import { redirect } from "next/navigation";
-import { createSession, deleteSession } from "@/api/session";
-import { API_URL } from "@/helpers/api";
+import { post } from "@/lib/fetch";
 
 const signUpSchema = z.object({
   email: z
@@ -32,30 +31,14 @@ export async function signUpAction(_: unknown, formData: FormData) {
     };
   }
 
-  const res = await fetch(`${API_URL}/users`, {
-    method: "POST",
-
-    body: formData,
-  });
-
-  const data = await res.json();
-
-  console.log("adsfgvcxa", data);
-  if (!res.ok) {
+  const { error } = await post("users", formData);
+  if (error) {
     return {
       errors: {
-        email: data.message ? data.message : ["Invalid email"],
-        password: ["Invalid password"],
+        email: error,
+        password: error,
       },
     };
   }
-
-  // await createSession(testUser.id);
-
-  redirect("/login");
-}
-
-export async function logout() {
-  await deleteSession();
   redirect("/login");
 }
