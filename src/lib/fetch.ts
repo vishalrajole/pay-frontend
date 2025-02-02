@@ -20,10 +20,15 @@ export const post = async (path: string, formData: FormData) => {
   });
 
   const parsedResponse = await response.json();
+
   if (!response.ok) {
-    throw new Error(parsedResponse.message);
+    return {
+      data: null,
+      error: parsedResponse.message[0] || "Something went wrong",
+    };
   }
-  return { error: "" };
+
+  return { data: parsedResponse, error: "" };
 };
 
 export const get = async (path: string) => {
@@ -33,6 +38,8 @@ export const get = async (path: string) => {
   });
 
   const parsedResponse = await response.json();
+
+  console.log("parsedResponseparsedResponse", parsedResponse);
 
   if (!response.ok) {
     throw new Error(parsedResponse.message);

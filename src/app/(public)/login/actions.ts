@@ -46,7 +46,7 @@ export async function loginAction(_: unknown, formData: FormData) {
     throw new Error(parsedResponse.message);
   }
 
-  setAuthCookie(response);
+  await setAuthCookie(response);
   redirect("/payments");
 }
 

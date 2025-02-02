@@ -31,7 +31,8 @@ export async function signUpAction(_: unknown, formData: FormData) {
     };
   }
 
-  const { error } = await post("users", formData);
+  const { data, error } = await post("users", formData);
+
   if (error) {
     return {
       errors: {
@@ -40,5 +41,7 @@ export async function signUpAction(_: unknown, formData: FormData) {
       },
     };
   }
-  redirect("/login");
+  if (data) {
+    redirect("/login");
+  }
 }
