@@ -1,7 +1,7 @@
 import { API_URL } from "@/helpers/api";
 import { cookies } from "next/headers";
 
-const getHeaders = async () => {
+export const getHeaders = async () => {
   const cookieStore = await cookies();
 
   return {

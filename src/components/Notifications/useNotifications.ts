@@ -17,12 +17,7 @@ async function getNotifications({
     limit: limit.toString(),
   });
 
-  const response = await fetch(`${API_URL}notifications?${params.toString()}`, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
+  const response = await fetch(`${API_URL}/notifications?${params.toString()}`);
 
   if (!response.ok) {
     throw new Error("Error fetching payments");

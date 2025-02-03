@@ -24,20 +24,9 @@ async function getPayments({
     searchTerm: searchTerm || "",
   });
 
-  const response = await fetch(`${API_URL}payments?${params.toString()}`, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
+  const response = await fetch(`${API_URL}/payments?${params.toString()}`);
 
-  if (!response.ok) {
-    throw new Error("Error fetching payments");
-  }
-
-  const data = await response.json();
-
-  return data;
+  return response.json();
 }
 
 export const usePayments = ({
