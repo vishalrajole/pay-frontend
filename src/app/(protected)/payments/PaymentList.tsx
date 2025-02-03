@@ -24,11 +24,20 @@ export function PaymentList() {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [searchTerm, setSearchTerm] = useState<string>("");
+  const [debouncedSearchTerm, setDebouncedSearchTerm] = useState<string>("");
 
   const { data, isError, fetchNextPage, isFetching, isLoading } = usePayments({
     sorting,
-    searchTerm,
+    searchTerm: debouncedSearchTerm,
   });
+
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedSearchTerm(searchTerm);
+    }, 500);
+
+    return () => clearTimeout(handler);
+  }, [searchTerm]);
 
   const flatData = useMemo(
     () => data?.pages?.flatMap((page) => page.data) ?? [],

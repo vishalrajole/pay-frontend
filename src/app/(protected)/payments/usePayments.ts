@@ -17,12 +17,20 @@ async function getPayments({
   sorting: SortingState;
   searchTerm?: string;
 }) {
-  const params = new URLSearchParams({
-    start: start.toString(),
-    limit: limit.toString(),
-    sorting: JSON.stringify(sorting),
-    searchTerm: searchTerm || "",
-  });
+  const params = new URLSearchParams(
+    Object.entries({
+      start: start?.toString(),
+      limit: limit?.toString(),
+      sorting:
+        sorting && Object.keys(sorting).length > 0
+          ? JSON.stringify(sorting)
+          : null,
+      searchTerm: searchTerm || null,
+    }).reduce((acc, [key, value]) => {
+      if (value) acc[key] = value;
+      return acc;
+    }, {} as Record<string, string>)
+  );
 
   const response = await fetch(`${API_URL}/payments?${params.toString()}`);
 
